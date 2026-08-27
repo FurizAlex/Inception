@@ -1,7 +1,10 @@
 #!/bin/bash
 
+chown -R :www-data /var/www/html
+chmod -R 775 /var/www/html
+
 # runs our wp install script as tempUser for security reasons
-su tempUser -c "/wp-install-script.sh"
+su -m tempUser -c "/wp-install-script.sh"
 
 # runs php-fpm in the forground
-/usr/sbin/php-fpm7.4 -F
+php-fpm -F

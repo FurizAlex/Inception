@@ -1,4 +1,4 @@
-FROM debian:bullseye
+FROM debian:trixie
 
 # install mariadb
 RUN apt-get update

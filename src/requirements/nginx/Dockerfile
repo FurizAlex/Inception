@@ -1,4 +1,4 @@
-FROM debian:bullseye
+FROM debian:trixie
 
 # Update our list & install nginx
 RUN apt-get update
@@ -6,9 +6,9 @@ RUN apt-get install nginx -y
 
 # Copy our config certs over
 COPY ./nginx.conf /etc/nginx/nginx.conf
-COPY ./tools/entrypoint.sh /
+COPY ./tools/entry_point.sh /
 
-RUN chmod +x /entrypoint.sh
+RUN chmod +x /entry_point.sh
 
 # Run nginx in the forground
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/entry_point.sh"]

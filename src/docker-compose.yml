@@ -10,10 +10,10 @@ services:
       - .env
     healthcheck:
       test: ["CMD-SHELL", "mariadb-admin --user=$${DB_USER} --pass=$${DB_PASS} --host=localhost ping"]
-      start_period: 10s
+      start_period: 40s
       interval: 5s
       timeout: 10s
-      retries: 3
+      retries: 5
     networks:
       - inception-network
   wordpress:
@@ -29,11 +29,11 @@ services:
     env_file:
       - .env
     healthcheck:
-      test: ["CMD-SHELL", "pgrep php-fpm7.4 || exit 1"]
-      start_period: 10s
+      test: ["CMD-SHELL", "pgrep php-fpm || exit 1"]
+      start_period: 40s
       interval: 5s
       timeout: 10s
-      retries: 3
+      retries: 5
     networks:
       - inception-network
   nginx:
