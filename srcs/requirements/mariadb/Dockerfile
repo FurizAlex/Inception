@@ -1,4 +1,4 @@
-FROM debian:trixie
+FROM debian:bookworm
 
 # install mariadb
 RUN apt-get update

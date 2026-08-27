@@ -12,8 +12,8 @@
 
 NAME                = Inception
 DOCKER_COMPOSE_FILE = docker-compose.yml
-ENV_FILE            = ./src/.env
-ENV_EXAMPLE         = ./src/.env.example
+ENV_FILE            = ./srcs/.env
+ENV_EXAMPLE         = ./srcs/.env.example
 DOMAIN_NAME         = $(shell awk -F= '/^DOMAIN_NAME=/ {print $$2}' $(ENV_FILE))
 USER_HOME           = $(shell awk -F= '/^USER_HOME=/ {print $$2}' $(ENV_FILE))
 
@@ -55,7 +55,7 @@ prep: generate_certs env
 
 $(NAME): prep
 	@echo "$(GREEN)[START]$(RESET) bilding and starting Docker containers..."
-	@sudo docker compose -f src/$(DOCKER_COMPOSE_FILE) up --build -d
+	@sudo docker compose -f srcs/$(DOCKER_COMPOSE_FILE) up --build -d
 	@echo "$(GREEN)[DONE]$(RESET) services are up"
 	@echo "open $(GREEN)https://$(DOMAIN_NAME)/$(RESET) manually in your browser."
 
@@ -63,7 +63,7 @@ re: fclean all
 
 clean:
 	@echo "$(YELLOW)[CLEAN]$(RESET) removing containers..."
-	@sudo docker compose -f src/$(DOCKER_COMPOSE_FILE) down
+	@sudo docker compose -f srcs/$(DOCKER_COMPOSE_FILE) down
 
 fclean: clean
 	@echo "$(YELLOW)[FCLEAN]$(RESET) full cleanup in progress..."
@@ -87,7 +87,7 @@ fclean: clean
 
 	# Remove project named volumes (Docker-managed)
 	@echo "$(YELLOW)[FCLEAN]$(RESET) removing project named volumes..."
-	@docker volume ls --format '{{.Name}}' | grep -E '^src_mariadb$$|^src_wordpress$$' | xargs -r docker volume rm -f
+	@docker volume ls --format '{{.Name}}' | grep -E '^srcs_mariadb$$|^srcs_wordpress$$' | xargs -r docker volume rm -f
 
 	# Remove project images
 	@echo "$(YELLOW)[FCLEAN]$(RESET) removing project images..."
@@ -95,17 +95,17 @@ fclean: clean
 
 	# Remove project network
 	@echo "$(YELLOW)[FCLEAN]$(RESET) removing project network..."
-	@docker network ls --format '{{.Name}}' | grep -E '^src_inception-network$$' | xargs -r docker network rm
+	@docker network ls --format '{{.Name}}' | grep -E '^srcs_inception-network$$' | xargs -r docker network rm
 
 	@echo "$(GREEN)[FCLEAN]$(RESET) project fully cleaned!"
 
 down:
 	@echo "$(YELLOW)[CLEAN]$(RESET) shutting Down containers..."
-	@sudo docker compose -f src/$(DOCKER_COMPOSE_FILE) down
+	@sudo docker compose -f srcs/$(DOCKER_COMPOSE_FILE) down
 
 logs:
 	@echo "$(BLUE)[LOGS]$(RESET) showing logs..."
-	@docker compose -f src/$(DOCKER_COMPOSE_FILE) logs -f || true
+	@docker compose -f srcs/$(DOCKER_COMPOSE_FILE) logs -f || true
 
 status:
 	@echo "$(BLUE)[STATUS]$(RESET) containers:"
