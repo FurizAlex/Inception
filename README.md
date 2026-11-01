@@ -1,6 +1,6 @@
 *This project has been created as part of the 42 curriculum by alechin*
 
-<img width="2000" height="500" alt="inceptionHeader" src="https://github.com/user-attachments/assets/d40ac127-7aa8-4019-ae70-fc8e4b1dec6d" />
+<img width="2000" height="500" alt="inceptionHeader" src="https://github.com/user-attachments/assets/2349ffca-282d-4d0c-8ba8-94d1be6867af" />
 
 **Description**:
 
